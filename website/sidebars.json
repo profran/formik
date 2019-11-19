@@ -17,6 +17,7 @@
       "api/form",
       "api/formik",
       "api/useField",
+      "api/usefastfield",
       "api/useFormik",
       "api/useFormikContext",
       "api/withFormik"

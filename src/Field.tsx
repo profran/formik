@@ -122,6 +122,27 @@ export function useField<Val = any>(
   ];
 }
 
+export function useFastField<Val = any>(
+  props: FieldAttributes<Val>
+): [FieldInputProps<Val>, FieldMetaProps<Val>] {
+  const [field, meta] = useField<Val>(props);
+  const [value, setValue] = React.useState<Val>(field.value);
+  const { onBlur, onChange } = field;
+
+  field.value = value;
+  field.onChange = (e: any): void => {
+    if (e && e.currentTarget) {
+      setValue(e.currentTarget.value);
+    }
+  };
+  field.onBlur = (e: any): void => {
+    onChange(e);
+    onBlur(e);
+  };
+
+  return [field, meta];
+}
+
 export function Field({
   validate,
   name,
